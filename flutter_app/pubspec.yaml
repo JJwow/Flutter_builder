@@ -90,6 +90,24 @@ flutter:
     - images/icon_sign_delete.png
     - images/2.0x/icon_sign_delete@2x.png
     - images/3.0x/icon_sign_delete@3x.png
+    - images/icon_cfcz_buslist_sel.png
+    - images/2.0x/icon_cfcz_buslist_sel@2x.png
+    - images/3.0x/icon_cfcz_buslist_sel@3x.png
+    - images/icon_cfcz_buslist.png
+    - images/2.0x/icon_cfcz_buslist@2x.png
+    - images/3.0x/icon_cfcz_buslist@3x.png
+    - images/icon_ddcz_buslist_sel.png
+    - images/2.0x/icon_ddcz_buslist_sel@2x.png
+    - images/3.0x/icon_ddcz_buslist_sel@3x.png
+    - images/icon_ddcz_buslist.png
+    - images/2.0x/icon_ddcz_buslist@2x.png
+    - images/3.0x/icon_ddcz_buslist@3x.png
+    - images/icon_time_buslist_rest.png
+    - images/2.0x/icon_time_buslist_rest@2x.png
+    - images/3.0x/icon_time_buslist_rest@3x.png
+    - images/icon_time_buslist_sel.png
+    - images/2.0x/icon_time_buslist_sel@2x.png
+    - images/3.0x/icon_time_buslist_sel@3x.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

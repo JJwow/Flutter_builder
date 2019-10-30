@@ -5,6 +5,7 @@ import 'dart:async';
 import 'package:flutter_app/tools/date_format_base.dart';
 import 'package:flutter_app/moduleBusList/model/scheduleList.dart';
 import 'package:flutter_app/moduleBusList/widget/busListCell.dart';
+import 'package:flutter_app/moduleBusList/widget/busListSelectBarView.dart';
 void main() => runApp(MyBusList());
 
 class MyBusList extends StatelessWidget {
@@ -12,8 +13,12 @@ class MyBusList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text('苏州-上海',style: TextStyle(color: Colors.white),),
+        backgroundColor: Color.fromRGBO(68, 138, 255, 1),
+      ),
       backgroundColor: Colors.white,
-      body: BusList(),
+      body: BusListBody(),
     );
   }
 }
@@ -37,6 +42,40 @@ Future<List<ScheduleList>> getScheduleList() async {
 ScheduleList changeDateFormat(ScheduleList schedule){
   schedule.dptDateTime = formatDateString(schedule.dptDateTime, [HH,':',nn]);
   return schedule;
+}
+
+class BusListBody extends StatelessWidget{
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return Stack(
+      children: <Widget>[
+        Positioned(
+          left: 0,
+          top: 0,
+          right: 0,
+          bottom: MediaQuery.of(context).padding.bottom,
+          child: BusList(),
+        ),
+        Positioned(
+          left: 0,
+          right: 0,
+          bottom: 0,
+          height: MediaQuery.of(context).padding.bottom,
+          child: Container(
+            color: Color.fromRGBO(46, 64, 85, 0.97),
+          ),
+        ),
+        Positioned(
+          left: 0,
+          right: 0,
+          bottom: MediaQuery.of(context).padding.bottom,
+          height: 55,
+          child: BusListSelectBarView(),
+        )
+      ],
+    );
+  }
 }
 
 class BusList extends StatefulWidget{
