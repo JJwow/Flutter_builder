@@ -108,6 +108,9 @@ flutter:
     - images/icon_time_buslist_sel.png
     - images/2.0x/icon_time_buslist_sel@2x.png
     - images/3.0x/icon_time_buslist_sel@3x.png
+    - images/icon_selected_bottombar.png
+    - images/2.0x/icon_selected_bottombar@2x.png
+    - images/3.0x/icon_selected_bottombar@3x.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
