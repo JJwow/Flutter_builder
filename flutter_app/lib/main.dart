@@ -139,7 +139,7 @@ class _CBDTextFieldState extends State<CBDTextField>{
       controller: textEditingController,
       decoration: InputDecoration(
         hintText: '请输入您的手机号登录或注册',
-//        labelText: '手机号',
+        labelText: textEditingController.text.length > 0 ? '手机号' : null,
         border: InputBorder.none,
         hintStyle: TextStyle(
           fontSize: 18,

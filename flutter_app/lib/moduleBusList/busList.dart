@@ -54,7 +54,7 @@ class BusListBody extends StatelessWidget{
           left: 0,
           top: 0,
           right: 0,
-          bottom: MediaQuery.of(context).padding.bottom,
+          bottom: MediaQuery.of(context).padding.bottom+55,
           child: BusList(),
         ),
         Positioned(
