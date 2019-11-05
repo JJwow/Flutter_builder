@@ -6,6 +6,7 @@ import 'package:flutter_app/tools/date_format_base.dart';
 import 'package:flutter_app/moduleBusList/model/scheduleList.dart';
 import 'package:flutter_app/moduleBusList/widget/busListCell.dart';
 import 'package:flutter_app/moduleBusList/widget/busListSelectBarView.dart';
+import 'package:flutter/animation.dart';
 void main() => runApp(MyBusList());
 
 class MyBusList extends StatelessWidget {
@@ -44,7 +45,25 @@ ScheduleList changeDateFormat(ScheduleList schedule){
   return schedule;
 }
 
-class BusListBody extends StatelessWidget{
+class BusListBody extends StatefulWidget{
+  @override
+  _BusListBodyState createState() => _BusListBodyState();
+}
+
+class _BusListBodyState extends State<BusListBody> with SingleTickerProviderStateMixin{
+  AnimationController animationController;
+  Animation animation;
+  void initState(){
+    super.initState();
+    animationController = AnimationController(
+      vsync: this,duration: Duration(milliseconds: 500)
+    );
+    animation = Tween(begin:0,end:100).animate(animationController);
+    animationController.addListener(() {
+      setState(() {});
+    });
+    animationController.forward();
+  }
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -69,7 +88,7 @@ class BusListBody extends StatelessWidget{
         Positioned(
           left: 0,
           right: 0,
-          bottom: MediaQuery.of(context).padding.bottom,
+          bottom: -55 + animationController.value * 89 ,
           height: 55,
           child: BusListSelectBarView(),
         )
