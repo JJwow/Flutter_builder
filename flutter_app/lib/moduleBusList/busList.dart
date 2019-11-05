@@ -45,6 +45,8 @@ ScheduleList changeDateFormat(ScheduleList schedule){
   return schedule;
 }
 
+
+
 class BusListBody extends StatefulWidget{
   @override
   _BusListBodyState createState() => _BusListBodyState();
@@ -53,6 +55,8 @@ class BusListBody extends StatefulWidget{
 class _BusListBodyState extends State<BusListBody> with SingleTickerProviderStateMixin{
   AnimationController animationController;
   Animation animation;
+  bool isScrollingUp = false;
+  double lastOffSetX = 0;
   void initState(){
     super.initState();
     animationController = AnimationController(
@@ -64,6 +68,21 @@ class _BusListBodyState extends State<BusListBody> with SingleTickerProviderStat
     });
     animationController.forward();
   }
+  void bottomViewAnimation(val){
+    setState(() {
+      //上滑
+//      if (val > lastOffSetX){
+//        isScrollingUp = true;
+//      }
+//      Future<void>.delayed(Duration(seconds: 1),(){
+//        if (isScrollingUp == false){
+//          animationController.forward();
+//        }
+//      });
+//      isScrollingUp = false;
+//      lastOffSetX = val;
+    });
+  }
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -74,7 +93,7 @@ class _BusListBodyState extends State<BusListBody> with SingleTickerProviderStat
           top: 0,
           right: 0,
           bottom: MediaQuery.of(context).padding.bottom+55,
-          child: BusList(),
+          child: BusList(scrollCallBlock: bottomViewAnimation,),
         ),
         Positioned(
           left: 0,
@@ -98,29 +117,57 @@ class _BusListBodyState extends State<BusListBody> with SingleTickerProviderStat
 }
 
 class BusList extends StatefulWidget{
+  BusList({Key key,this.scrollCallBlock}):super(key:key);
+  final scrollCallBlock;
   @override
   _BusListState createState() => new _BusListState();
 }
 
 class _BusListState extends State<BusList>{
   List<ScheduleList> busList = [];
+  ScrollController _controller = ScrollController();
+  bool showToTopBtn = false;
   @override
   void initState(){
+    super.initState();
     getScheduleList().then((busList){
       setState((){
         this.busList = busList;
       });
     });
-    super.initState();
+    _controller.addListener((){
+      print(_controller.offset);
+      widget.scrollCallBlock(_controller.offset);
+    });
+  }
+  void dispose(){
+    //为了避免内存泄露，需要调用_controller.dispose
+    _controller.dispose();
+    super.dispose();
+  }
+  //下拉更新数据
+  Future<void> _handleRefresh() async {
+    await Future<void>.delayed(Duration(seconds: 3),(){
+      print('刷新');
+      setState(() {
+
+      });
+    });
   }
   Widget build(BuildContext context) {
     // TODO: implement build
-    return ListView.builder(
-      scrollDirection: Axis.vertical,
-      itemCount: busList.length,
-      itemBuilder: (BuildContext content, int index){
-        return BusListCell(busData: busList[index],);
-      },
+
+    return RefreshIndicator(
+      child: ListView.builder(
+        scrollDirection: Axis.vertical,
+        controller: _controller,
+        itemCount: busList.length,
+        itemBuilder: (BuildContext content, int index){
+          return BusListCell(busData: busList[index],);
+        },
+        physics: const AlwaysScrollableScrollPhysics(),
+      ),
+      onRefresh: _handleRefresh,
     );
   }
 }
