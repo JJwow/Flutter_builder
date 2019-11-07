@@ -1,16 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart' as prefix0;
 import 'package:flutter_app/moduleBusList/busList.dart';
+import 'package:flutter_app/modulePublic/publicViewModel.dart';
+import 'package:flutter_app/party_software_methods.dart';
 void main() => runApp(MyAppp());
 bool bShowCleanTF = false;//控制是否需要清除
+String name;
+String password;
 class MyAppp extends StatefulWidget {
-
+  MyAppp({Key key, this.userName})
+      :super(key: key);
+  final String userName;
   _MyApppState createState() => new _MyApppState();
 }
 class _MyApppState extends State<MyAppp> {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    name = widget.userName;
     return Scaffold(
       resizeToAvoidBottomPadding:false,//弹出键盘就不会影响stack布局
       backgroundColor: Colors.white,
@@ -143,6 +150,7 @@ class _CBDTextFieldState extends State<CBDTextField>{
     super.initState();
     textEditingController.addListener(() {
       print("textEditingController:${textEditingController.text}");
+      password = textEditingController.text;
     });
   }
   Widget build(BuildContext context) {
@@ -272,11 +280,21 @@ class LoginButton extends StatelessWidget {
         elevation: 0,
         onPressed: (){
           if (active){
-            prefix0.Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext content)=>MyBusList()));
+            final future = login(name,password);
+            future.then((status) => pushTo(status,context));
           }
         },
       ),
     );
+  }
+}
+
+void pushTo(String message,BuildContext context){
+  if (message == "200"){
+    prefix0.Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext content)=>MyBusList()));
+  }
+  else{
+    showAlertDialog(message,context);
   }
 }
 

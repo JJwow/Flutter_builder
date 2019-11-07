@@ -35,11 +35,11 @@ launchURL(LoginType type ,BuildContext context) async {
       }
       break;
     }
-    _showAlertDialog(message,context);
+    showAlertDialog(message,context);
 //        throw 'Could not launch $urls';
   }
 }
-_showAlertDialog(String message ,BuildContext context){
+showAlertDialog(String message ,BuildContext context){
   showDialog(
       context: context,
       builder:(ctx){

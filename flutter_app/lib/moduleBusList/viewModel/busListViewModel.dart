@@ -6,7 +6,7 @@ Future <List<ScheduleList>> getBusListData () async{
   //实例化Dio对象
   Dio dio = new Dio();
   //发动请求并获取返回
-  Response response = await dio.get('http://localhost:9000/queryData');
+  Response response = await dio.get('http://localhost:9000/queryScheduleData');
   ///因为dio返回的时候会默认将字符串json化，json化后键值对会没有双引号，但json.decode方法传入的string需要是json化之前的原始数据，所以要先将response.data反序列化
   Map responseMap = json.decode(json.encode(response.data));
   ///将Map映射到事先准备好的model里

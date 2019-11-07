@@ -1,12 +1,14 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/modulePublic/publicViewModel.dart';
 import 'package:flutter_app/password.dart';
 import 'Hybird.dart';
 import 'config_urls.dart';
 import 'config_enum.dart';
 import 'party_software_methods.dart';
+import 'package:flutter_app/public_Methods.dart';
 void main() => runApp(MyApp());
-
+String userName;
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
@@ -19,7 +21,7 @@ class MyApp extends StatelessWidget {
         body: MyHomeBody(),
       ),
         routes: <String, WidgetBuilder> {
-          '/screen1': (BuildContext context) => new MyAppp(),
+          '/screen1': (BuildContext context) => new MyAppp(userName: userName,),
         },
     );
   }
@@ -131,6 +133,7 @@ class _CBDTextFieldState extends State<CBDTextField>{
   void initState() {
     super.initState();
     textEditingController.addListener(() {
+      userName = textEditingController.text;
       print("textEditingController:${textEditingController.text}");
     });
   }
@@ -205,11 +208,21 @@ class LoginButton extends StatelessWidget {
         elevation: 0,
         onPressed: (){
           if (active) {
-            Navigator.of(context).pushNamed('/screen1');
+            final future = getUser(userName);
+            future.then((status) => pushTo(status,context));
           }
         },
       ),
     );
+  }
+}
+
+void pushTo(String message,BuildContext context){
+  if (message == "200"){
+    Navigator.of(context).pushNamed('/screen1');
+  }
+  else{
+    showAlertDialog(message,context);
   }
 }
 
