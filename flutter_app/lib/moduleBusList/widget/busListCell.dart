@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/moduleBusList/model/scheduleList.dart';
+import 'package:flutter_app/tools/date_format_base.dart';
 class BusListCell extends StatefulWidget{
   BusListCell({Key key, this.busData})
       :super(key: key);
@@ -13,6 +14,7 @@ class _BusListCellState extends State<BusListCell>{
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
+    String dateTime = formatDateString(widget.busData.dptDateTime, [HH,':',nn]);
     return Column(
       children: <Widget>[
         Row(
@@ -29,7 +31,7 @@ class _BusListCellState extends State<BusListCell>{
                   Container(
                     margin: EdgeInsets.only(left: 15,right: 31),
                     width: 60,
-                    child: Text(widget.busData.dptDateTime,style: TextStyle(color: Colors.black,fontSize: 20,fontWeight: FontWeight.bold),textAlign: TextAlign.left,),
+                    child: Text(dateTime,style: TextStyle(color: Colors.black,fontSize: 20,fontWeight: FontWeight.bold),textAlign: TextAlign.left,),
                   ),
                 ],
               ),

@@ -7,6 +7,7 @@ import 'package:flutter_app/moduleBusList/model/scheduleList.dart';
 import 'package:flutter_app/moduleBusList/widget/busListCell.dart';
 import 'package:flutter_app/moduleBusList/widget/busListSelectBarView.dart';
 import 'package:flutter/animation.dart';
+import 'package:flutter_app/moduleBusList/viewModel/busListViewModel.dart';
 void main() => runApp(MyBusList());
 
 class MyBusList extends StatelessWidget {
@@ -130,11 +131,12 @@ class _BusListState extends State<BusList>{
   @override
   void initState(){
     super.initState();
-    getScheduleList().then((busList){
+    getBusListData().then((busList){
       setState((){
         this.busList = busList;
       });
     });
+
     _controller.addListener((){
       print(_controller.offset);
       widget.scrollCallBlock(_controller.offset);
@@ -163,6 +165,8 @@ class _BusListState extends State<BusList>{
         controller: _controller,
         itemCount: busList.length,
         itemBuilder: (BuildContext content, int index){
+          ScheduleList schedule = busList[index];
+//          schedule.dptDateTime = formatDateString(schedule.dptDateTime, [HH,':',nn]);
           return BusListCell(busData: busList[index],);
         },
         physics: const AlwaysScrollableScrollPhysics(),

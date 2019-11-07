@@ -1,3 +1,18 @@
+import 'package:json_annotation/json_annotation.dart';
+// user.g.dart 将在我们运行生成命令后自动生成
+part 'scheduleList.g.dart';
+///这个标注是告诉生成器，这个类是需要生成Model类的
+@JsonSerializable()
+class ScheduleListResponse{
+  List <ScheduleList>  scheduleList;
+  ScheduleListResponse({
+    this.scheduleList,
+  });
+  //不同的类使用不同的mixin即可
+  factory ScheduleListResponse.fromJson(Map<String, dynamic> json) => _$ScheduleListResponseFromJson(json);
+  Map<String, dynamic> toJson() => _$ScheduleListResponseToJson(this);
+}
+@JsonSerializable()
 class ScheduleList {
   String departure;
   String destination;
@@ -24,6 +39,10 @@ class ScheduleList {
     this.remark,
     this.runTime,
   });
+
+  //不同的类使用不同的mixin即可
+  factory ScheduleList.fromJson(Map<String, dynamic> json) => _$ScheduleListFromJson(json);
+  Map<String, dynamic> toJson() => _$ScheduleListToJson(this);
 
   ScheduleList.withMap(Map<String, dynamic> parsedMap) {
     this.departure         = parsedMap["departure"];
