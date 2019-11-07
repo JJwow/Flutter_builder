@@ -14,6 +14,7 @@ class _BusListCellState extends State<BusListCell>{
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
+    ///flutter不允许更改传入widget的原始数据，更改了就被标为dirty，影响布局，但可以赋值到一个新的数据对象上
     String dateTime = formatDateString(widget.busData.dptDateTime, [HH,':',nn]);
     return Column(
       children: <Widget>[

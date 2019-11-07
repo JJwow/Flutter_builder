@@ -166,7 +166,6 @@ class _BusListState extends State<BusList>{
         itemCount: busList.length,
         itemBuilder: (BuildContext content, int index){
           ScheduleList schedule = busList[index];
-//          schedule.dptDateTime = formatDateString(schedule.dptDateTime, [HH,':',nn]);
           return BusListCell(busData: busList[index],);
         },
         physics: const AlwaysScrollableScrollPhysics(),

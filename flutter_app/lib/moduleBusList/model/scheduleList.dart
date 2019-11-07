@@ -1,6 +1,9 @@
+//生成json和model映射需要的包
 import 'package:json_annotation/json_annotation.dart';
+
 // user.g.dart 将在我们运行生成命令后自动生成
 part 'scheduleList.g.dart';
+
 ///这个标注是告诉生成器，这个类是需要生成Model类的
 @JsonSerializable()
 class ScheduleListResponse{
@@ -12,6 +15,7 @@ class ScheduleListResponse{
   factory ScheduleListResponse.fromJson(Map<String, dynamic> json) => _$ScheduleListResponseFromJson(json);
   Map<String, dynamic> toJson() => _$ScheduleListResponseToJson(this);
 }
+///这个标注是告诉生成器，这个类是需要生成Model类的
 @JsonSerializable()
 class ScheduleList {
   String departure;
