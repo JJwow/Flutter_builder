@@ -108,7 +108,7 @@ class _BusListBodyState extends State<BusListBody> with SingleTickerProviderStat
         Positioned(
           left: 0,
           right: 0,
-          bottom: -55 + animationController.value * 89 ,
+          bottom: -55 + animationController.value * (MediaQuery.of(context).padding.bottom+55) ,
           height: 55,
           child: BusListSelectBarView(),
         )
