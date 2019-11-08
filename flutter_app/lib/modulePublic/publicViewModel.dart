@@ -1,11 +1,29 @@
 import 'package:dio/dio.dart';
 import 'dart:convert';
+import 'package:http/http.dart' as http;
 //方法内需要使用多线程await时，方法定义上需要用Future、async
 Future <String> getUser (String userName) async{
   //实例化Dio对象
   Dio dio = new Dio();
   //发动请求并获取返回
-  Response response = await dio.post("http://localhost:9000/getUser",queryParameters: {"userName":userName});
+  Response response;
+  try{
+    FormData formData = new FormData.from({
+      "userName": userName,
+    });
+    response = await dio.post("http://localhost:9000/getUser",queryParameters: {"userName": userName});
+  } on DioError catch(e) {
+    if(null != e.response) {
+      print(e.response.data);
+      print(e.response.headers);
+      print(e.response.request);
+    } else{
+      // Something happened in setting up or sending the request that triggered an Error
+      print(e.request);
+      print(e.message);
+    }
+  }
+
   ///因为dio返回的时候会默认将字符串json化，json化后键值对会没有双引号，但json.decode方法传入的string需要是json化之前的原始数据，所以要先将response.data反序列化
   Map responseMap = json.decode(json.encode(response.data));
   if (responseMap["code"] == "200"){
