@@ -9,3 +9,8 @@ enum BusListSelectBarType{
   BusListSelectBarType_destination,
   BusListSelectBarType_time,
 }
+
+enum ScrollType{
+  ScrollType_aimation,
+  ScrollType_operation,
+}

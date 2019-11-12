@@ -8,8 +8,11 @@ import 'package:flutter_app/moduleBusList/widget/busListCell.dart';
 import 'package:flutter_app/moduleBusList/widget/busListSelectBarView.dart';
 import 'package:flutter/animation.dart';
 import 'package:flutter_app/moduleBusList/viewModel/busListViewModel.dart';
+import 'package:flutter_app/config_enum.dart';
 void main() => runApp(MyBusList());
-
+double historyY = 0.0;
+double headerTop = 0.0;
+bool bOperation = false;
 class MyBusList extends StatelessWidget {
   // This widget is the root of your application.
   @override
@@ -56,8 +59,9 @@ class BusListBody extends StatefulWidget{
 class _BusListBodyState extends State<BusListBody> with SingleTickerProviderStateMixin{
   AnimationController animationController;
   Animation animation;
-  bool isScrollingUp = false;
-  double lastOffSetX = 0;
+  ScrollType scrollType = ScrollType.ScrollType_aimation;
+  double operationScrollOffset = 0.0;
+  double animationScrollOffset = 0.0;
   void initState(){
     super.initState();
     animationController = AnimationController(
@@ -65,24 +69,43 @@ class _BusListBodyState extends State<BusListBody> with SingleTickerProviderStat
     );
     animation = Tween(begin:0,end:100).animate(animationController);
     animationController.addListener(() {
-      setState(() {});
+      setState(() {
+        animationScrollOffset = animationController.value * (MediaQuery.of(context).padding.bottom+55);
+        operationScrollOffset = animationScrollOffset;
+      });
     });
     animationController.forward();
   }
   void bottomViewAnimation(val){
-    setState(() {
-      //上滑
-//      if (val > lastOffSetX){
-//        isScrollingUp = true;
-//      }
-//      Future<void>.delayed(Duration(seconds: 1),(){
-//        if (isScrollingUp == false){
-//          animationController.forward();
-//        }
+    double height = (MediaQuery.of(context).padding.bottom+55);
+    double offsetY = val;
+    double diffY = offsetY - historyY;
+    if (diffY > 0){
+      setState(() {
+        if(operationScrollOffset - diffY >= 0){
+          operationScrollOffset = operationScrollOffset - diffY;
+        }
+        else{
+          operationScrollOffset = 0;
+        }
+      });
+    }
+    historyY = val;
+  }
+  void actionOnPointerUp(PointerUpEvent event){
+    scrollType = ScrollType.ScrollType_aimation;
+//    animationController = AnimationController(
+//        vsync: this,duration: Duration(milliseconds: 500)
+//    );
+//    animation = Tween(begin:0,end:100).animate(animationController);
+//    animationController.addListener(() {
+//      setState(() {
 //      });
-//      isScrollingUp = false;
-//      lastOffSetX = val;
-    });
+//    });
+//    animationController.forward();
+  }
+  void actionOnPointerDown(PointerDownEvent event){
+    scrollType = ScrollType.ScrollType_operation;
   }
   @override
   Widget build(BuildContext context) {
@@ -94,7 +117,7 @@ class _BusListBodyState extends State<BusListBody> with SingleTickerProviderStat
           top: 0,
           right: 0,
           bottom: MediaQuery.of(context).padding.bottom+55,
-          child: BusList(scrollCallBlock: bottomViewAnimation,),
+          child: BusList(scrollCallBlock: bottomViewAnimation,onPointerUpBlock: actionOnPointerUp,onPointerDownBlock: actionOnPointerDown,),
         ),
         Positioned(
           left: 0,
@@ -108,7 +131,7 @@ class _BusListBodyState extends State<BusListBody> with SingleTickerProviderStat
         Positioned(
           left: 0,
           right: 0,
-          bottom: -55 + animationController.value * (MediaQuery.of(context).padding.bottom+55) ,
+          bottom: -55 + (scrollType==ScrollType.ScrollType_aimation?animationScrollOffset:operationScrollOffset) ,
           height: 55,
           child: BusListSelectBarView(),
         )
@@ -118,8 +141,10 @@ class _BusListBodyState extends State<BusListBody> with SingleTickerProviderStat
 }
 
 class BusList extends StatefulWidget{
-  BusList({Key key,this.scrollCallBlock}):super(key:key);
+  BusList({Key key,this.scrollCallBlock,this.onPointerUpBlock,this.onPointerDownBlock}):super(key:key);
   final scrollCallBlock;
+  final onPointerUpBlock;
+  final onPointerDownBlock;
   @override
   _BusListState createState() => new _BusListState();
 }
@@ -138,7 +163,6 @@ class _BusListState extends State<BusList>{
     });
 
     _controller.addListener((){
-      print(_controller.offset);
       widget.scrollCallBlock(_controller.offset);
     });
   }
@@ -156,21 +180,31 @@ class _BusListState extends State<BusList>{
       });
     });
   }
+  void actionOnPointerUp(PointerUpEvent event){
+    widget.onPointerUpBlock(event);
+  }
+  void actionOnPointerDown(PointerDownEvent event){
+    widget.onPointerDownBlock(event);
+  }
   Widget build(BuildContext context) {
     // TODO: implement build
 
-    return RefreshIndicator(
-      child: ListView.builder(
-        scrollDirection: Axis.vertical,
-        controller: _controller,
-        itemCount: busList.length,
-        itemBuilder: (BuildContext content, int index){
-          ScheduleList schedule = busList[index];
-          return BusListCell(busData: busList[index],);
-        },
-        physics: const AlwaysScrollableScrollPhysics(),
+    return Listener(
+      onPointerUp: actionOnPointerUp,
+      onPointerDown: actionOnPointerDown,
+      child: RefreshIndicator(
+        child: ListView.builder(
+          scrollDirection: Axis.vertical,
+          controller: _controller,
+          itemCount: busList.length,
+          itemBuilder: (BuildContext content, int index){
+            ScheduleList schedule = busList[index];
+            return BusListCell(busData: busList[index],);
+          },
+          physics: const AlwaysScrollableScrollPhysics(),
+        ),
+        onRefresh: _handleRefresh,
       ),
-      onRefresh: _handleRefresh,
     );
   }
 }
