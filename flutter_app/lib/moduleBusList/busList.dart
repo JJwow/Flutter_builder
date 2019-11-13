@@ -56,7 +56,7 @@ class BusListBody extends StatefulWidget{
   _BusListBodyState createState() => _BusListBodyState();
 }
 
-class _BusListBodyState extends State<BusListBody> with SingleTickerProviderStateMixin{
+class _BusListBodyState extends State<BusListBody> with TickerProviderStateMixin{
   AnimationController animationController;
   Animation animation;
   ScrollType scrollType = ScrollType.ScrollType_aimation;
@@ -67,11 +67,12 @@ class _BusListBodyState extends State<BusListBody> with SingleTickerProviderStat
     animationController = AnimationController(
       vsync: this,duration: Duration(milliseconds: 500)
     );
-    animation = Tween(begin:0,end:100).animate(animationController);
-    animationController.addListener(() {
+    animation = Tween(begin:0.0,end:1.0).animate(animationController);
+    animation.addListener(() {
       setState(() {
-        animationScrollOffset = animationController.value * (MediaQuery.of(context).padding.bottom+55);
-        operationScrollOffset = animationScrollOffset;
+        double height = (MediaQuery.of(context).padding.bottom+55);
+        animationScrollOffset = animation.value * height;
+        operationScrollOffset = height;
       });
     });
     animationController.forward();
@@ -80,29 +81,40 @@ class _BusListBodyState extends State<BusListBody> with SingleTickerProviderStat
     double height = (MediaQuery.of(context).padding.bottom+55);
     double offsetY = val;
     double diffY = offsetY - historyY;
-    if (diffY > 0){
+    if (scrollType == ScrollType.ScrollType_operation){
       setState(() {
-        if(operationScrollOffset - diffY >= 0){
-          operationScrollOffset = operationScrollOffset - diffY;
+        ///下滑
+        if (diffY > 0){
+          if(operationScrollOffset - diffY >= 0){
+            operationScrollOffset = operationScrollOffset - diffY;
+          }
+          else{
+            operationScrollOffset = 0;
+          }
         }
+        ///上滑
         else{
-          operationScrollOffset = 0;
+          if(operationScrollOffset - diffY <= height){
+            operationScrollOffset = operationScrollOffset - diffY;
+          }
+          else{
+            operationScrollOffset = height;
+          }
         }
+        animationScrollOffset = operationScrollOffset;
       });
     }
-    historyY = val;
+    historyY = offsetY;
   }
   void actionOnPointerUp(PointerUpEvent event){
     scrollType = ScrollType.ScrollType_aimation;
-//    animationController = AnimationController(
-//        vsync: this,duration: Duration(milliseconds: 500)
-//    );
-//    animation = Tween(begin:0,end:100).animate(animationController);
-//    animationController.addListener(() {
-//      setState(() {
-//      });
-//    });
-//    animationController.forward();
+    double height = (MediaQuery.of(context).padding.bottom+55);
+    double begins = (animationScrollOffset.toInt())/(height.toInt());
+    animation = Tween(begin:begins.toDouble(),end:1.0).animate(animationController);
+    Future<void>.delayed(Duration(milliseconds: 500),(){
+      animationController.reset();
+      animationController.forward();
+    });
   }
   void actionOnPointerDown(PointerDownEvent event){
     scrollType = ScrollType.ScrollType_operation;
