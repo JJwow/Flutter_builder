@@ -9,6 +9,7 @@ import 'package:flutter_app/moduleBusList/widget/busListSelectBarView.dart';
 import 'package:flutter/animation.dart';
 import 'package:flutter_app/moduleBusList/viewModel/busListViewModel.dart';
 import 'package:flutter_app/config_enum.dart';
+import 'package:flutter_app/moduleBusList/widget/busListSelectDateView.dart';
 void main() => runApp(MyBusList());
 double historyY = 0.0;
 double headerTop = 0.0;
@@ -127,6 +128,13 @@ class _BusListBodyState extends State<BusListBody> with TickerProviderStateMixin
         Positioned(
           left: 0,
           top: 0,
+          right: 0,
+          height: 60,
+          child: BusListSelectDateView(),
+        ),
+        Positioned(
+          left: 0,
+          top: 60,
           right: 0,
           bottom: MediaQuery.of(context).padding.bottom+55,
           child: BusList(scrollCallBlock: bottomViewAnimation,onPointerUpBlock: actionOnPointerUp,onPointerDownBlock: actionOnPointerDown,),

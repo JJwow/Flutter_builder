@@ -116,6 +116,9 @@ flutter:
     - images/icon_selected_bottombar.png
     - images/2.0x/icon_selected_bottombar@2x.png
     - images/3.0x/icon_selected_bottombar@3x.png
+    - images/arrow_list_riqi.png
+    - images/2.0x/arrow_list_riqi@2x.png
+    - images/3.0x/arrow_list_riqi@3x.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
