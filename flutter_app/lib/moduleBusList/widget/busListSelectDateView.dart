@@ -17,7 +17,7 @@ class _BusListSelectDateViewState extends State<BusListSelectDateView>{
     return Row(
       children: <Widget>[
         Container(
-          color: Color.fromRGBO(68, 138, 255, 1),
+          color: Color.fromRGBO(42, 130, 229, 1),
           width: MediaQuery.of(context).size.width-50,
           height: 60,
           child: ListView.builder(
@@ -35,7 +35,7 @@ class _BusListSelectDateViewState extends State<BusListSelectDateView>{
           child: Container(
             width: 50,
             height: 60,
-            color: Color.fromRGBO(68, 138, 255, 1),
+            color: Color.fromRGBO(42, 130, 229, 1),
             child: Stack(
               children: <Widget>[
                 Positioned(
@@ -68,7 +68,7 @@ class _SelectDateWidget extends State<SelectDateWidget>{
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    Color backColor = widget.bSelected?Colors.white:Color.fromRGBO(68, 138, 255, 1);
+    Color backColor = widget.bSelected?Colors.white:Color.fromRGBO(42, 130, 229, 1);
     Color textColor = widget.bSelected?Color.fromRGBO(68, 138, 255, 1):Colors.white;
     return InkWell(
       onTap: (){

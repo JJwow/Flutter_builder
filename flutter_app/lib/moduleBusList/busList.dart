@@ -20,8 +20,9 @@ class MyBusList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('苏州-上海',style: TextStyle(color: Colors.white),),
+        title: Text('苏州-上海',style: TextStyle(color: Colors.white,fontSize: 18),),
         backgroundColor: Color.fromRGBO(68, 138, 255, 1),
+        elevation: 0.0,
       ),
       backgroundColor: Colors.white,
       body: BusListBody(),
