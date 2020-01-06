@@ -1,5 +1,6 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/model/queryLoginModel.dart';
 import 'action.dart';
 import 'state.dart';
 import 'package:flutter/gestures.dart';
@@ -9,7 +10,9 @@ import 'package:flutter_app/config_urls.dart';
 import 'package:flutter_app/config_enum.dart';
 import 'package:flutter_app/party_software_methods.dart';
 Dispatch _dispatch;
+LoginState _state;
 Widget buildView(LoginState state, Dispatch dispatch, ViewService viewService) {
+  _state = state;
   _dispatch = dispatch;
   return MyApp();
 }
@@ -213,8 +216,11 @@ class LoginButton extends StatelessWidget {
         elevation: 0,
         onPressed: (){
           if (active) {
-            final future = getUser(userName);
-            future.then((status) => pushTo(status,context));
+//            final future = getUser(userName);
+//            future.then((status) => pushTo(status,context));
+            _state.userName = userName;
+            QueryLoginModel model = _dispatch(LoginActionCreator.onQueryUserNameData());
+            pushTo(model, context);
           }
         },
       ),
@@ -222,13 +228,12 @@ class LoginButton extends StatelessWidget {
   }
 }
 
-void pushTo(String message,BuildContext context){
-  if (message == "200"){
-//    Navigator.of(context).pushNamed('/screen1');
+void pushTo(QueryLoginModel model,BuildContext context){
+  if (model.code == "200"){
     _dispatch(LoginActionCreator.onOpenLogin_password());
   }
   else{
-    showAlertDialog(message,context);
+    showAlertDialog(model.desc,context);
   }
 }
 

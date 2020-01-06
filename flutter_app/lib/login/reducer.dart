@@ -20,8 +20,8 @@ LoginState _onAction(LoginState state, Action action) {
 
 //初始化数据
 LoginState _onQueryUserNameData(LoginState state, Action action) {
-  final future = Api().getUser();
-//  future.then((status) => pushTo(status,context));
-  final LoginState newState = state.clone().model = Api().getUser();//从Api请求数据
+  Api().getUser(state.userName).then((model){
+    final LoginState newState = state.clone()..model = model;//从Api请求数据
   return newState;
+  });
 }

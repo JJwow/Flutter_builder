@@ -22,7 +22,7 @@ class Api {
   }
 
 
-  Future <String> getUser (String userName) async{
+  Future <QueryLoginModel> getUser (String userName) async{
     String url;
     if(Platform.isIOS){
       //ios相关代码
@@ -38,11 +38,6 @@ class Api {
     ///因为dio返回的时候会默认将字符串json化，json化后键值对会没有双引号，但json.decode方法传入的string需要是json化之前的原始数据，所以要先将response.data反序列化
     Map responseMap = json.decode(json.encode(response.data));
     var queryLoginModel = new QueryLoginModel.fromJson(responseMap);
-    if (queryLoginModel.code == "200"){
-      return queryLoginModel.code;
-    }
-    else{
-      return queryLoginModel.desc;
-    }
+    return queryLoginModel;
   }
 }
