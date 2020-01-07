@@ -1,12 +1,15 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/page/module_login/login_password/action.dart';
 import 'state.dart';
 import 'package:flutter/material.dart' as prefix0;
 import 'package:flutter_app/page/module_bus/moduleBusList/busList.dart';
-import 'package:flutter_app/modulePublic/publicViewModel.dart';
 import 'package:flutter_app/component/CustomAlertView.dart';
-
+Dispatch _dispatch;
+Login_passwordState _state;
 Widget buildView(Login_passwordState state, Dispatch dispatch, ViewService viewService) {
+  _dispatch = dispatch;
+  _state = state;
   return MyAppp();
 }
 bool bShowCleanTF = false;//控制是否需要清除
@@ -285,8 +288,9 @@ class LoginButton extends StatelessWidget {
         elevation: 0,
         onPressed: (){
           if (active){
-            final future = login(name,password);
-            future.then((status) => pushTo(status,context));
+            _state.userName = name;
+            _state.password = password;
+            _dispatch(Login_passwordActionCreator.onLogin());
           }
         },
       ),

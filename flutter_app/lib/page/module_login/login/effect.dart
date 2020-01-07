@@ -27,6 +27,3 @@ void _queryUserNameData(Action action, Context<LoginState> ctx){
   });
 }
 
-void _init(Action action, Context<LoginState> ctx) {
-
-}

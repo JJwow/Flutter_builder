@@ -1,6 +1,8 @@
 import 'package:fish_redux/fish_redux.dart';
 
 class Login_passwordState implements Cloneable<Login_passwordState> {
+  Login_passwordState({this.userName, this.password});
+  String userName, password;
 
   @override
   Login_passwordState clone() {
