@@ -1,7 +1,6 @@
 import 'package:fish_redux/fish_redux.dart';
-import 'package:flutter_app/model/queryLoginModel.dart';
+import 'package:flutter_app/apiModel/apiModel_login/queryLoginModel.dart';
 class LoginState implements Cloneable<LoginState> {
-  String userName;
   QueryLoginModel model;
   @override
   LoginState clone() {

@@ -1,14 +1,12 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/model/queryLoginModel.dart';
 import 'action.dart';
 import 'state.dart';
 import 'package:flutter/gestures.dart';
-import 'package:flutter_app/modulePublic/publicViewModel.dart';
-import 'package:flutter_app/Hybird.dart';
-import 'package:flutter_app/config_urls.dart';
-import 'package:flutter_app/config_enum.dart';
-import 'package:flutter_app/party_software_methods.dart';
+import 'package:flutter_app/page/module_hybird/hybird.dart';
+import 'package:flutter_app/config/config_urls.dart';
+import 'package:flutter_app/config/config_enum.dart';
+import 'package:flutter_app/utils/party_software_methods.dart';
 Dispatch _dispatch;
 LoginState _state;
 Widget buildView(LoginState state, Dispatch dispatch, ViewService viewService) {
@@ -216,24 +214,11 @@ class LoginButton extends StatelessWidget {
         elevation: 0,
         onPressed: (){
           if (active) {
-//            final future = getUser(userName);
-//            future.then((status) => pushTo(status,context));
-            _state.userName = userName;
-            QueryLoginModel model = _dispatch(LoginActionCreator.onQueryUserNameData());
-            pushTo(model, context);
+            _dispatch(LoginActionCreator.onQueryUserNameData(userName));
           }
         },
       ),
     );
-  }
-}
-
-void pushTo(QueryLoginModel model,BuildContext context){
-  if (model.code == "200"){
-    _dispatch(LoginActionCreator.onOpenLogin_password());
-  }
-  else{
-    showAlertDialog(model.desc,context);
   }
 }
 

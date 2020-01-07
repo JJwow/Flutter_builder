@@ -1,7 +1,7 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
-import 'login/page.dart';
-import 'login_password/page.dart';
+import 'page/module_login/login/page.dart';
+import 'page/module_login/login_password/page.dart';
 Widget createApp() {
   final AbstractRoutes routes = PageRoutes(
     pages: <String, Page<Object, dynamic>>{

@@ -1,6 +1,7 @@
-import 'config_enum.dart';
 import 'package:flutter/material.dart';
+import '../config/config_enum.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter_app/component/CustomAlertView.dart';
 launchURL(LoginType type ,BuildContext context) async {
   String urls;
   switch (type){
@@ -36,25 +37,6 @@ launchURL(LoginType type ,BuildContext context) async {
       break;
     }
     showAlertDialog(message,context);
-//        throw 'Could not launch $urls';
   }
 }
-showAlertDialog(String message ,BuildContext context){
-  showDialog(
-      context: context,
-      builder:(ctx){
-        return AlertDialog(
-          title: Text('提示'),
-          content: Text('$message'),
-          actions: <Widget>[
-            new FlatButton(
-              child: Text('确定'),
-              onPressed: (){
-                Navigator.of(context).maybePop();
-              },
-            )
-          ],
-        );
-      }
-  );
-}
+

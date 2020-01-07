@@ -1,13 +1,10 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
-
-import 'action.dart';
 import 'state.dart';
-
 import 'package:flutter/material.dart' as prefix0;
-import 'package:flutter_app/moduleBusList/busList.dart';
+import 'package:flutter_app/page/module_bus/moduleBusList/busList.dart';
 import 'package:flutter_app/modulePublic/publicViewModel.dart';
-import 'package:flutter_app/party_software_methods.dart';
+import 'package:flutter_app/component/CustomAlertView.dart';
 
 Widget buildView(Login_passwordState state, Dispatch dispatch, ViewService viewService) {
   return MyAppp();

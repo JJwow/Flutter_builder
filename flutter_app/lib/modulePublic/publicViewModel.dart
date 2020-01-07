@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'dart:convert';
-import 'package:flutter_app/tools/httpUtil_methods.dart';
-import 'package:flutter_app/config.dart';
+import 'package:flutter_app/utils/httpUtil_methods.dart';
+import 'package:flutter_app/config/config.dart';
 import 'dart:io';
 //方法内需要使用多线程await时，方法定义上需要用Future、async
 Future <String> getUser (String userName) async{

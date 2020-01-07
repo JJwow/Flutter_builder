@@ -1,6 +1,6 @@
-import 'package:flutter_app/model/queryLoginModel.dart';
+import 'package:flutter_app/apiModel/apiModel_login//queryLoginModel.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter_app/config.dart';
+import 'package:flutter_app/config/config.dart';
 import 'dart:io';
 import 'dart:convert';
 class Api {

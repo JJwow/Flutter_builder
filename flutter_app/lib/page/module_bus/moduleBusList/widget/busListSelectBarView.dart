@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/config_enum.dart';
+import 'package:flutter_app/config/config_enum.dart';
 class BusListSelectBarView extends StatefulWidget{
   @override
   _BusListSelectBarViewState createState() => _BusListSelectBarViewState();
