@@ -22,10 +22,11 @@ class MyAppp extends StatefulWidget {
   _MyApppState createState() => new _MyApppState();
 }
 class _MyApppState extends State<MyAppp> {
-  // This widget is the root of your application.
+  static const routeName = 'login_password_page';
   @override
   Widget build(BuildContext context) {
-    name = widget.userName;
+    Map<String, dynamic> args = ModalRoute.of(context).settings.arguments;//接受从命名路由传过来的参数
+    name = args["userName"];
     return Scaffold(
       resizeToAvoidBottomPadding:false,//弹出键盘就不会影响stack布局
       backgroundColor: Colors.white,

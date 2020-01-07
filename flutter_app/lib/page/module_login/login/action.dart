@@ -7,8 +7,8 @@ import 'package:fish_redux/fish_redux.dart';
 
 enum LoginAction {openLogin_password, queryUserNameData, }
 class LoginActionCreator {
-  static Action onOpenLogin_password() {
-    return const Action(LoginAction.openLogin_password);
+  static Action onOpenLogin_password(String userName) {
+    return Action(LoginAction.openLogin_password, payload: userName);
   }
   static Action onQueryUserNameData(String userName) {
     return Action(LoginAction.queryUserNameData, payload: userName);

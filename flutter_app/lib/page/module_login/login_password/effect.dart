@@ -1,6 +1,7 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/widgets.dart' hide Action;
 import 'package:flutter_app/component/CustomAlertView.dart';
+import 'package:flutter_app/page/module_login/login/view.dart';
 import 'action.dart';
 import 'state.dart';
 import 'package:flutter_app/api/api_login/api_login.dart';

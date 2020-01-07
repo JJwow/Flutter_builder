@@ -1,7 +1,7 @@
 import 'package:fish_redux/fish_redux.dart';
 
 //TODO replace with your own action
-enum Login_passwordAction { login, openFunctionPage }
+enum Login_passwordAction { login, openFunctionPage}
 
 class Login_passwordActionCreator {
   static Action onLogin() {

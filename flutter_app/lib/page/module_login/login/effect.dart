@@ -13,13 +13,13 @@ Effect<LoginState> buildEffect() {
 }
 
 void _openLogin_password(Action action, Context<LoginState> ctx) {
-  Navigator.of(ctx.context).pushNamed('login_password_page', arguments: null);    //注意2
+  Navigator.of(ctx.context).pushNamed('login_password_page', arguments: {"userName":action.payload});    //注意2
 }
 
 void _queryUserNameData(Action action, Context<LoginState> ctx){
   Api().getUser(action.payload).then((model){
     if (model.code == "200") {
-      ctx.dispatch(LoginActionCreator.onOpenLogin_password());
+      ctx.dispatch(LoginActionCreator.onOpenLogin_password(action.payload));
     }
     else{
       showAlertDialog(model.desc,ctx.context);
