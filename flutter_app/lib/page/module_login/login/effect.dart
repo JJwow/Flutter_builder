@@ -5,7 +5,6 @@ import 'action.dart';
 import 'state.dart';
 import '../../../api/api_login/api_login.dart';
 import 'package:flutter_app/component/CustomAlertView.dart';
-import 'package:flutter_app/page/module_login/login_password/view.dart';
 
 Effect<LoginState> buildEffect() {
   return combineEffects(<Object, Effect<LoginState>>{

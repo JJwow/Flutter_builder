@@ -12,6 +12,6 @@ Reducer<bus_listState> buildReducer() {
 }
 
 bus_listState _onUpdateList(bus_listState state, Action action) {
-  final bus_listState newState = state.clone();
+  final bus_listState newState = state.clone()..busList = action.payload;
   return newState;
 }
