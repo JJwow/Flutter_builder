@@ -6,7 +6,6 @@ import 'action.dart';
 import 'state.dart';
 import 'package:flutter_app/api/api_login/api_login.dart';
 import 'package:flutter/material.dart' hide Action;
-import 'package:flutter_app/page/module_bus/moduleBusList/busList.dart';
 Effect<Login_passwordState> buildEffect() {
   return combineEffects(<Object, Effect<Login_passwordState>>{
     Login_passwordAction.login: _onLogin,
@@ -26,6 +25,5 @@ void _onLogin(Action action, Context<Login_passwordState> ctx) {
 }
 
 void _onOpenFunctionPage(Action action, Context<Login_passwordState> ctx) {
-//  Navigator.of(ctx.context).pushNamed('bus_list_page',arguments: null);
-  Navigator.of(ctx.context).push(MaterialPageRoute(builder: (BuildContext content)=>MyBusList()));
+  Navigator.of(ctx.context).pushNamed('bus_list_page',arguments: null);
 }

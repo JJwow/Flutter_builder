@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:flutter_app/page/module_bus/moduleBusList/model/scheduleList.dart';
+import 'package:flutter_app/apiModel/apiModel_bus/scheduleList.dart';
 import 'dart:convert';
 import 'package:flutter_app/utils/httpUtil_methods.dart';
 import 'package:flutter_app/config/config.dart';

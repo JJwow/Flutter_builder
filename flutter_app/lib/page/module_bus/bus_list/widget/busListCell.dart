@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/page/module_bus/moduleBusList/model/scheduleList.dart';
+import 'package:flutter_app/apiModel/apiModel_bus/scheduleList.dart';
 import 'package:flutter_app/utils/date_format_base.dart';
 class BusListCell extends StatefulWidget{
   BusListCell({Key key, this.busData})

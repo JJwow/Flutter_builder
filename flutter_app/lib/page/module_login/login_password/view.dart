@@ -1,10 +1,7 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/page/module_login/login_password/action.dart';
+import 'action.dart';
 import 'state.dart';
-import 'package:flutter/material.dart' as prefix0;
-import 'package:flutter_app/page/module_bus/moduleBusList/busList.dart';
-import 'package:flutter_app/component/CustomAlertView.dart';
 Dispatch _dispatch;
 Login_passwordState _state;
 Widget buildView(Login_passwordState state, Dispatch dispatch, ViewService viewService) {
@@ -22,11 +19,9 @@ class MyAppp extends StatefulWidget {
   _MyApppState createState() => new _MyApppState();
 }
 class _MyApppState extends State<MyAppp> {
-  static const routeName = 'login_password_page';
   @override
   Widget build(BuildContext context) {
-    Map<String, dynamic> args = ModalRoute.of(context).settings.arguments;//接受从命名路由传过来的参数
-    name = args["userName"];
+    name = _state.userName;
     return Scaffold(
       resizeToAvoidBottomPadding:false,//弹出键盘就不会影响stack布局
       backgroundColor: Colors.white,
@@ -296,15 +291,6 @@ class LoginButton extends StatelessWidget {
         },
       ),
     );
-  }
-}
-
-void pushTo(String message,BuildContext context){
-  if (message == "200"){
-    prefix0.Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext content)=>MyBusList()));
-  }
-  else{
-    showAlertDialog(message,context);
   }
 }
 

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'package:flutter_app/page/module_bus/moduleBusList/model/scheduleList.dart';
+part of 'scheduleList.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator

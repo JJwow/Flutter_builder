@@ -1,9 +1,11 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/widgets.dart' hide Action;
+import 'package:flutter/material.dart' hide Action;
 import 'action.dart';
 import 'state.dart';
 import '../../../api/api_login/api_login.dart';
 import 'package:flutter_app/component/CustomAlertView.dart';
+import 'package:flutter_app/page/module_login/login_password/view.dart';
 
 Effect<LoginState> buildEffect() {
   return combineEffects(<Object, Effect<LoginState>>{
@@ -13,6 +15,7 @@ Effect<LoginState> buildEffect() {
 }
 
 void _openLogin_password(Action action, Context<LoginState> ctx) {
+  ctx.state.userName = action.payload;
   Navigator.of(ctx.context).pushNamed('login_password_page', arguments: {"userName":action.payload});    //注意2
 }
 
