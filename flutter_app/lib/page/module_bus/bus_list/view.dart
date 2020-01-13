@@ -1,6 +1,7 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
+import 'package:flutter_app/page/module_bus/bus_list/adapter.dart';
 import 'dart:convert';
 import 'dart:async';
 import 'package:flutter_app/utils/date_format_base.dart';
@@ -14,9 +15,11 @@ import 'action.dart';
 import 'state.dart';
 Dispatch _dispatch;
 bus_listState _state;
+ListAdapter _adapter;
 Widget buildView(bus_listState state, Dispatch dispatch, ViewService viewService) {
   _dispatch = dispatch;
   _state = state;
+  _adapter = viewService.buildAdapter();
   return MyBusList();
 }
 double historyY = 0.0;
@@ -209,11 +212,8 @@ class _BusListState extends State<BusList>{
         child: ListView.builder(
           scrollDirection: Axis.vertical,
           controller: _controller,
-          itemCount: _state.busList.length,
-          itemBuilder: (BuildContext content, int index){
-            ScheduleList schedule = _state.busList[index];
-            return BusListCell(busData: _state.busList[index],);
-          },
+          itemCount: _adapter.itemCount,
+          itemBuilder: _adapter.itemBuilder,
           physics: const AlwaysScrollableScrollPhysics(),
         ),
         onRefresh: _handleRefresh,

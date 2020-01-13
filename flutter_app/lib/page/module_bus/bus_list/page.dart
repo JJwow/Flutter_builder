@@ -1,5 +1,5 @@
 import 'package:fish_redux/fish_redux.dart';
-
+import 'adapter.dart';
 import 'effect.dart';
 import 'reducer.dart';
 import 'state.dart';
@@ -13,7 +13,7 @@ class bus_listPage extends Page<bus_listState, Map<String, dynamic>> {
             reducer: buildReducer(),
             view: buildView,
             dependencies: Dependencies<bus_listState>(
-                adapter: null,
+                adapter: NoneConn<bus_listState>() + bus_listAdapter(),
                 slots: <String, Dependent<bus_listState>>{
                 }),
             middleware: <Middleware<bus_listState>>[
