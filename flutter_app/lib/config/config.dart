@@ -1,2 +1,2 @@
-final String iosUrl = 'http://localhost:9000/';
-final String androidUrl = 'http://10.0.2.2:9000/';
+final String iosUrl = 'http://47.114.58.197:80/';
+final String androidUrl = 'http://47.114.58.197:80/';
